@@ -1,0 +1,81 @@
+   //jshint esversion:6
+   const mongoose  = require('mongoose');
+ // Replace the uri string with your connection string.
+  
+   mongoose.connect("mongodb://localhost:27017/PROJECT", {useNewUrlParser: true});
+   //  const collection =db.collection('fruits');
+  
+   const fruitSchema= new mongoose.Schema({
+      name :String,
+    rating:Number,
+      review:String
+  }) ;
+    const Fruit= mongoose.model("Fruit",fruitSchema);
+    const fruit = new Fruit ({
+      name : "apple",
+    rating: 7,
+      review:"pretty solid as a fruit."
+  });
+  
+    // fruit.save();
+  
+    const personSchema= new mongoose.Schema({
+        name :String,
+     age:Number
+        
+    }) ;
+      const Person= mongoose.model("Person",personSchema);
+    
+      const person = new Person ({
+      name : "John",
+        age: 20,
+       
+      });
+      person.save();
+
+    
+ 
+
+
+
+
+  
+   const kiwi= new Fruit ({
+    name :"kiwi",
+    rating:10,
+    review:"The best fruit for health"
+   })
+   const Banana= new Fruit ({
+    name :"Banana",
+    rating:8,
+    review:"good banana"
+   });
+   const Orange= new Fruit ({
+    name :"Orange",
+    rating:10,
+    review:"Yumm..."
+   });
+ 
+   // in order to store in bulk
+   //  Fruit.insertMany([kiwi,Banana,Orange],function(err){
+   //   if(err){
+   //     console.log(err);
+   //   }
+   //   else {
+   //     console.log("successfully saved all the fruits in PROJECT");
+   //   }
+   //  });
+
+
+ Fruit.find(function(err , fruits){
+  if(err){
+    console.log(err);
+  }
+  else {
+    mongoose.connection.close();
+
+    fruits.forEach(function(fruit){
+      console.log(fruit.name);
+    });
+  }
+ })
