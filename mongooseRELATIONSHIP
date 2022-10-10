@@ -1,0 +1,136 @@
+   //jshint esversion:6
+   const mongoose  = require('mongoose');
+ // Replace the uri string with your connection string.
+  
+   mongoose.connect("mongodb://localhost:27017/PROJECT", {useNewUrlParser: true});
+   //  const collection =db.collection('fruits');
+  
+   const fruitSchema= new mongoose.Schema({
+      name :{
+        type: String,
+        required: [true,"Please check your data entry, no name specified"]
+      },
+      rating:{
+        type: Number,
+        min:1,
+        max:10
+      },
+      review:String
+   }) ;
+    const Fruit= mongoose.model("Fruit",fruitSchema);
+
+    const fruit = new Fruit ({
+      // name : "apple",
+      rating: 10,
+      review:"pretty solid as a fruit."
+   });
+  
+    //fruit.save();
+  
+    const personSchema= new mongoose.Schema({
+        name :String,
+     age:Number,
+     // embedded fruitschema 
+     favouriteFruit: fruitSchema
+        
+    }) ;
+      const Person = mongoose.model("Person",personSchema);
+     
+      const pineapple= new Fruit({
+        name:"Pineapple",
+        score: 10,
+        review:"Great taste."
+      });
+      pineapple.save();
+       
+      // relationship with embedded documents
+      const person = new Person ({
+      name : "Amy",
+        age: 12,
+        favouriteFruit: pineapple
+       
+      });
+    person.save();
+
+    
+ 
+
+
+
+
+  
+   //  const kiwi= new Fruit ({
+   //   name :"kiwi",
+   //   rating:10,
+   //   review:"The best fruit for health"
+   //  });
+  
+   //  const Banana= new Fruit ({
+   //   name :"Banana",
+   //   rating:8,
+   //   review:"good banana"
+   //  });
+   
+   //  const Orange= new Fruit ({
+   //   name :"Orange",
+   //   rating:10,
+   //   review:"Yumm..."
+   //  });
+ 
+   // in order to store in bulk
+   //  Fruit.insertMany([kiwi,Banana,Orange],function(err){
+   //   if(err){
+   //     console.log(err);
+   //   }
+   //   else {
+   //     console.log("successfully saved all the fruits in PROJECT");
+   //   }
+   //  });
+
+ // search operation 
+ Fruit.find(function(err , fruits){
+  if(err){
+    console.log(err);
+  }
+  else {
+    mongoose.connection.close();
+
+    fruits.forEach(function(fruit){
+      console.log(fruit.name);
+    });
+  }
+ });
+
+  //update operation
+
+ Fruit.updateOne({_id: "6343ffe83ef76b6191017be0"},{name: "Peach"},function(err){
+  if(err){
+    console.log(err);
+  }
+  else{
+    console.log("successfully updated the document.");
+  }
+ });
+
+  // Delete Operation
+
+
+  // Fruit.deleteOne({name :"Peach"},function(err){
+  //   if(err){
+  //     console.log(err);
+  //   }
+  //   else{
+  //     console.log("Successfully deleted the document.");
+  //   }
+  // });
+
+
+  // DeleteMany operation
+  Person.deleteMany({name :"John"},function(err){
+    if(err){
+       console.log(err);
+     }
+     else{
+       console.log("Successfully deleted all the john document.");
+     }
+  });
