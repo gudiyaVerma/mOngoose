@@ -1,1 +1,7 @@
 https://git.heroku.com/hidden-scrubland-75003.git
+git config --global user.email "pv278020@gmail.com"
+  git config --global user.name "poonam verma"
+  https://git.heroku.com/mighty-taiga-98581.git
+  
+  //to remove warning of git add .
+  git config --global core.safecrlf false
