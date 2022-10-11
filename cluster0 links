@@ -1,0 +1,1 @@
+mongo "mongodb+srv://cluster0.7r2jjhx.mongodb.net/myFirstDatabase" --username <username>
