@@ -5,3 +5,5 @@ git config --global user.email "pv278020@gmail.com"
   
   //to remove warning of git add .
   git config --global core.safecrlf false
+rm -fr .git
+https://powerful-tundra-43966.herokuapp.com/
